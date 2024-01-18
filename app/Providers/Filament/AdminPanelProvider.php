@@ -40,7 +40,7 @@ class AdminPanelProvider extends PanelProvider
                         'headerToolbar' => [
                             'left' => 'prev,next today',
                             'center' => 'title',
-                            'right' => 'dayGridMonth,timeGridWeek,dayGridDay',
+                            'right' => 'timeGridWeek,dayGridDay',
                         ],
                         'initialView' => 'timeGridWeek',
                         'nowIndicator' => true,
