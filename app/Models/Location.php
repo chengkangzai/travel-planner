@@ -18,6 +18,7 @@ class Location extends Model
         'remarks',
         'type',
         'day_id',
+        'is_visited',
     ];
 
     protected $casts = [

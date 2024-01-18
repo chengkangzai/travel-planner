@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('order_column')->nullable();
             $table->string('remarks')->nullable();
             $table->string('type')->nullable();
+            $table->boolean('is_visited')->default(false);
             $table->foreignIdFor(Day::class);
             $table->timestamps();
         });

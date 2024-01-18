@@ -3,8 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Enums\LocationType;
-use Filament\Tables\Grouping\Group;
 use App\Filament\Resources\LocationResource\Pages;
+use App\Models\Day;
 use App\Models\Location;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\DatePicker;
@@ -22,7 +22,9 @@ use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 
 class LocationResource extends Resource
@@ -49,6 +51,10 @@ class LocationResource extends Resource
                             DatePicker::make('date')
                                 ->required(),
                         ])
+                        ->live(onBlur: true)
+                        ->afterStateUpdated(function (string $state, Set $set) {
+                            $set('from', Day::find($state)->date->format('Y-m-d 00:00:00'));
+                        })
                         ->required(),
 
                     Radio::make('type')
@@ -69,7 +75,7 @@ class LocationResource extends Resource
                         ->columnSpanFull()
                         ->reactive()
                         ->url()
-                        ->suffixAction(fn($state) => $state == null ? null : Action::make('Open Google Map')
+                        ->suffixAction(fn ($state) => $state == null ? null : Action::make('Open Google Map')
                             ->url($state)
                             ->icon('heroicon-o-arrow-top-right-on-square')
                             ->openUrlInNewTab()
@@ -78,11 +84,13 @@ class LocationResource extends Resource
 
                 Section::make([
                     DateTimePicker::make('from')
+//                        ->native(false)
                         ->reactive()
-                        ->afterStateUpdated(fn(string $context, Set $set, string $state) => $context == 'create' ? $set('to', $state) : null)
+                        ->afterStateUpdated(fn (string $context, Set $set, string $state) => $context == 'create' ? $set('to', $state) : null)
                         ->seconds(false),
 
                     DateTimePicker::make('to')
+//                        ->native(false)
                         ->seconds(false),
                 ]),
 
@@ -90,11 +98,11 @@ class LocationResource extends Resource
 
                 Placeholder::make('created_at')
                     ->label('Created Date')
-                    ->content(fn(?Location $record): string => $record?->created_at?->diffForHumans() ?? '-'),
+                    ->content(fn (?Location $record): string => $record?->created_at?->diffForHumans() ?? '-'),
 
                 Placeholder::make('updated_at')
                     ->label('Last Modified Date')
-                    ->content(fn(?Location $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    ->content(fn (?Location $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
             ]);
     }
 
@@ -113,7 +121,7 @@ class LocationResource extends Resource
 
                 TextColumn::make('google_map_link')
                     ->limit(30)
-                    ->url(fn($state) => $state,true),
+                    ->url(fn ($state) => $state, true),
 
                 TextColumn::make('from')
                     ->sortable()
@@ -122,13 +130,17 @@ class LocationResource extends Resource
                 TextColumn::make('to')
                     ->time(),
 
+                IconColumn::make('is_visited')
+                    ->boolean()
+                    ->action(fn (Location $record) => $record->update(['is_visited' => ! $record->is_visited])),
+
                 TextColumn::make('remarks')
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('type')
                     ->badge(),
 
-                TextColumn::make('day.name')
+                TextColumn::make('day.name'),
             ])
             ->filters([
                 //
