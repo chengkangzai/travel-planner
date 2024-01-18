@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Enums\LocationType;
+use Filament\Tables\Grouping\Group;
 use App\Filament\Resources\LocationResource\Pages;
 use App\Models\Location;
 use Filament\Forms\Components\Actions\Action;
@@ -15,7 +16,6 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\BulkActionGroup;
@@ -69,7 +69,7 @@ class LocationResource extends Resource
                         ->columnSpanFull()
                         ->reactive()
                         ->url()
-                        ->suffixAction(fn ($state) => $state == null ? null : Action::make('Open Google Map')
+                        ->suffixAction(fn($state) => $state == null ? null : Action::make('Open Google Map')
                             ->url($state)
                             ->icon('heroicon-o-arrow-top-right-on-square')
                             ->openUrlInNewTab()
@@ -79,7 +79,7 @@ class LocationResource extends Resource
                 Section::make([
                     DateTimePicker::make('from')
                         ->reactive()
-                        ->afterStateUpdated(fn (string$context, Set $set,string $state) => $context=='create' ? $set('to', $state) : null)
+                        ->afterStateUpdated(fn(string $context, Set $set, string $state) => $context == 'create' ? $set('to', $state) : null)
                         ->seconds(false),
 
                     DateTimePicker::make('to')
@@ -90,36 +90,45 @@ class LocationResource extends Resource
 
                 Placeholder::make('created_at')
                     ->label('Created Date')
-                    ->content(fn (?Location $record): string => $record?->created_at?->diffForHumans() ?? '-'),
+                    ->content(fn(?Location $record): string => $record?->created_at?->diffForHumans() ?? '-'),
 
                 Placeholder::make('updated_at')
                     ->label('Last Modified Date')
-                    ->content(fn (?Location $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    ->content(fn(?Location $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('from')
             ->columns([
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('google_map_link'),
+                TextColumn::make('title')
+                    ->searchable()
+                    ->sortable(),
+
+                TextColumn::make('google_map_link')
+                    ->limit(30)
+                    ->url(fn($state) => $state),
 
                 TextColumn::make('from')
-                    ->date(),
+                    ->sortable()
+                    ->time(),
 
-                TextColumn::make('to'),
+                TextColumn::make('to')
+                    ->time(),
 
-                TextColumn::make('order_column'),
+                TextColumn::make('remarks')
+                    ->toggleable(isToggledHiddenByDefault: true),
 
-                TextColumn::make('remarks'),
+                TextColumn::make('type')
+                    ->badge(),
 
-                TextColumn::make('type'),
-
-                TextColumn::make('day_id'),
+                TextColumn::make('day.name')
             ])
             ->filters([
                 //
@@ -127,6 +136,10 @@ class LocationResource extends Resource
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),
+            ])
+            ->groups([
+                Group::make('day.name')
+                    ->label('Day'),
             ])
             ->bulkActions([
                 BulkActionGroup::make([

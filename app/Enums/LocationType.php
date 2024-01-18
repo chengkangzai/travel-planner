@@ -2,6 +2,7 @@
 
 namespace App\Enums;
 
+use Filament\Support\Colors\Color;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
@@ -29,12 +30,12 @@ enum LocationType: string implements HasColor, HasLabel
     public function getColor(): string|array|null
     {
         return match ($this) {
-            self::hotel => 'blue',
-            self::restaurant => 'green',
-            self::attraction => 'yellow',
-            self::activity => 'purple',
-            self::transport => 'red',
-            self::other => 'gray',
+            self::hotel => Color::Green,
+            self::restaurant => Color::Yellow,
+            self::attraction => Color::Blue,
+            self::activity => Color::Purple,
+            self::transport => Color::Orange,
+            self::other => Color::Gray,
         };
     }
 }

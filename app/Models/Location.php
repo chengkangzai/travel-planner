@@ -2,20 +2,12 @@
 
 namespace App\Models;
 
+use App\Enums\LocationType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Spatie\EloquentSortable\Sortable;
-use Spatie\EloquentSortable\SortableTrait;
 
-class Location extends Model implements Sortable
+class Location extends Model
 {
-    use SortableTrait;
-
-    public $sortable = [
-        'order_column_name' => 'order_column',
-        'sort_when_creating' => true,
-    ];
-
     protected $fillable = [
         'name',
         'title',
@@ -31,6 +23,7 @@ class Location extends Model implements Sortable
     protected $casts = [
         'from' => 'datetime',
         'to' => 'datetime',
+        'type' => LocationType::class,
     ];
 
     public function day(): BelongsTo
