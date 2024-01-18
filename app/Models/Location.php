@@ -19,6 +19,7 @@ class Location extends Model
         'type',
         'day_id',
         'is_visited',
+        'type'
     ];
 
     protected $casts = [
