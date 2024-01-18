@@ -26,6 +26,8 @@ class CalendarWidget extends FullCalendarWidget
                 'start' => $location->from,
                 'end' => $location->to,
 
+                'backgroundColor' => $location->type->getColor()
+
 //                'url' => LocationResource::getUrl('edit',  ['record' => $location]),
 //                'shouldOpenUrlInNewTab' => true
             ])
@@ -38,7 +40,7 @@ class CalendarWidget extends FullCalendarWidget
             CreateAction::make()
                 ->mountUsing(function (Form $form, array $arguments) {
                     return $form->fill([
-                        'day_id' => Day::where('date', $arguments['start']?->format('Y-m-d') ??null)->first()->id ?? null,
+                        'day_id' => Day::where('date', $arguments['start']?->format('Y-m-d') ?? null)->first()->id ?? null,
                         'from' => $arguments['start'] ?? null,
                         'to' => $arguments['end'] ?? null
                     ]);
