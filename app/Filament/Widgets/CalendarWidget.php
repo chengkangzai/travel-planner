@@ -56,6 +56,7 @@ class CalendarWidget extends FullCalendarWidget
                     'name' => $record->name,
                     'from' => $arguments['event']['start'] ?? $record->from,
                     'to' => $arguments['event']['end'] ?? $record->to,
+                    'type' => $record->type,
                 ])),
             DeleteAction::make(),
         ];
