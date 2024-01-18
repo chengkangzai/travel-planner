@@ -79,7 +79,7 @@ class LocationResource extends Resource
                 Section::make([
                     DateTimePicker::make('from')
                         ->reactive()
-                        ->afterStateUpdated(fn (Set $set, Get $get) => $get('to') == null ? $set('to', $get('from')) : null)
+                        ->afterStateUpdated(fn (string$context, Set $set,string $state) => $context=='create' ? $set('to', $state) : null)
                         ->seconds(false),
 
                     DateTimePicker::make('to')
