@@ -38,7 +38,7 @@ class CalendarWidget extends FullCalendarWidget
             CreateAction::make()
                 ->mountUsing(function (Form $form, array $arguments) {
                     return $form->fill([
-                        'day_id' => Day::where('date', $arguments['start'] ?? $arguments['end'] ?? 0)->first()->id ?? null,
+                        'day_id' => Day::where('date', $arguments['start']?->format('Y-m-d') ??null)->first()->id ?? null,
                         'from' => $arguments['start'] ?? null,
                         'to' => $arguments['end'] ?? null
                     ]);
