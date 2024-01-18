@@ -68,7 +68,7 @@ class LocationResource extends Resource
 
                 TextColumn::make('google_map_link')
                     ->limit(30)
-                    ->url(fn ($state) => $state, true),
+                    ->url(fn($state) => $state, true),
 
                 TextColumn::make('from')
                     ->sortable()
@@ -79,7 +79,7 @@ class LocationResource extends Resource
 
                 IconColumn::make('is_visited')
                     ->boolean()
-                    ->action(fn (Location $record) => $record->update(['is_visited' => ! $record->is_visited])),
+                    ->action(fn(Location $record) => $record->update(['is_visited' => !$record->is_visited])),
 
                 TextColumn::make('remarks')
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -175,7 +175,9 @@ class LocationResource extends Resource
                     ->seconds(false),
             ]),
 
-            RichEditor::make('remarks'),
+            Section::make([
+                RichEditor::make('remarks'),
+            ])->collapsible()->collapsed()
         ];
     }
 }
