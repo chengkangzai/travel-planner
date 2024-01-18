@@ -45,7 +45,6 @@ class AdminPanelProvider extends PanelProvider
                         'initialView' => 'timeGridWeek',
                         'nowIndicator' => true,
                         'allDaySlot' => false,
-                        'contentHeight' => 700,
                     ])
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
