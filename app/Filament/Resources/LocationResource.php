@@ -113,7 +113,7 @@ class LocationResource extends Resource
 
                 TextColumn::make('google_map_link')
                     ->limit(30)
-                    ->url(fn($state) => $state),
+                    ->url(fn($state) => $state,true),
 
                 TextColumn::make('from')
                     ->sortable()
