@@ -11,8 +11,8 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('name')->nullable();
+            $table->string('title')->nullable();
+            $table->string('name');
             $table->string('google_map_link')->nullable();
             $table->dateTime('from')->nullable();
             $table->dateTime('to')->nullable();
