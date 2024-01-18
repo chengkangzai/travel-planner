@@ -26,7 +26,8 @@ class CalendarWidget extends FullCalendarWidget
                 'start' => $location->from,
                 'end' => $location->to,
 
-                'backgroundColor' => $location->type->getColor()
+                'backgroundColor' => 'rgb('.$location->type->getColor()[500].')',
+                'borderColor' => 'rgb('.$location->type->getColor()[500].')',
 
 //                'url' => LocationResource::getUrl('edit',  ['record' => $location]),
 //                'shouldOpenUrlInNewTab' => true
