@@ -41,68 +41,15 @@ class LocationResource extends Resource
     {
         return $form
             ->schema([
-                Section::make([
-                    Select::make('day_id')
-                        ->relationship('day', 'name')
-                        ->createOptionForm([
-                            TextInput::make('name')
-                                ->required(),
-
-                            DatePicker::make('date')
-                                ->required(),
-                        ])
-                        ->live(onBlur: true)
-                        ->afterStateUpdated(function (string $state, Set $set) {
-                            $set('from', Day::find($state)->date->format('Y-m-d 00:00:00'));
-                        })
-                        ->required(),
-
-                    Radio::make('type')
-                        ->columns(2)
-                        ->options(LocationType::class)
-                        ->required(),
-                ]),
-
-                Section::make([
-                    TextInput::make('name')
-                        ->helperText('Location Name Eg. "Airport"/"Hotel"')
-                        ->required(),
-
-                    TextInput::make('title')
-                        ->helperText('Event Title Eg. "Lunch"/"Driving'),
-
-                    TextInput::make('google_map_link')
-                        ->columnSpanFull()
-                        ->reactive()
-                        ->url()
-                        ->suffixAction(fn ($state) => $state == null ? null : Action::make('Open Google Map')
-                            ->url($state)
-                            ->icon('heroicon-o-arrow-top-right-on-square')
-                            ->openUrlInNewTab()
-                        ),
-                ]),
-
-                Section::make([
-                    DateTimePicker::make('from')
-//                        ->native(false)
-                        ->reactive()
-                        ->afterStateUpdated(fn (string $context, Set $set, string $state) => $context == 'create' ? $set('to', $state) : null)
-                        ->seconds(false),
-
-                    DateTimePicker::make('to')
-//                        ->native(false)
-                        ->seconds(false),
-                ]),
-
-                RichEditor::make('remarks'),
-
+                ...self::getFormSchema(),
                 Placeholder::make('created_at')
                     ->label('Created Date')
-                    ->content(fn (?Location $record): string => $record?->created_at?->diffForHumans() ?? '-'),
+                    ->content(fn(?Location $record): string => $record?->created_at?->diffForHumans() ?? '-'),
 
                 Placeholder::make('updated_at')
                     ->label('Last Modified Date')
-                    ->content(fn (?Location $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    ->content(fn(?Location $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+
             ]);
     }
 
@@ -172,5 +119,63 @@ class LocationResource extends Resource
     public static function getGloballySearchableAttributes(): array
     {
         return ['name'];
+    }
+
+    public static function getFormSchema(): array
+    {
+        return [
+            Section::make([
+                Select::make('day_id')
+                    ->relationship('day', 'name')
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->required(),
+
+                        DatePicker::make('date')
+                            ->required(),
+                    ])
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (string $state, Set $set) {
+                        $set('from', Day::find($state)->date->format('Y-m-d 00:00:00'));
+                    })
+                    ->required(),
+
+                Radio::make('type')
+                    ->columns(2)
+                    ->options(LocationType::class)
+                    ->required(),
+            ]),
+
+            Section::make([
+                TextInput::make('name')
+                    ->helperText('Location Name Eg. "Airport"/"Hotel"')
+                    ->required(),
+
+                TextInput::make('title')
+                    ->helperText('Event Title Eg. "Lunch"/"Driving'),
+
+                TextInput::make('google_map_link')
+                    ->columnSpanFull()
+                    ->reactive()
+                    ->url()
+                    ->suffixAction(fn($state) => $state == null ? null : Action::make('Open Google Map')
+                        ->url($state)
+                        ->icon('heroicon-o-arrow-top-right-on-square')
+                        ->openUrlInNewTab()
+                    ),
+            ]),
+
+            Section::make([
+                DateTimePicker::make('from')
+                    ->reactive()
+                    ->afterStateUpdated(fn(string $context, Set $set, string $state) => $context == 'create' ? $set('to', $state) : null)
+                    ->seconds(false),
+
+                DateTimePicker::make('to')
+                    ->seconds(false),
+            ]),
+
+            RichEditor::make('remarks'),
+        ];
     }
 }
