@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Filament\Resources\LocationResource;
+use App\Models\Day;
 use App\Models\Location;
 use Filament\Forms\Form;
 use Illuminate\Database\Eloquent\Model;
@@ -36,6 +37,7 @@ class CalendarWidget extends FullCalendarWidget
         return [
             CreateAction::make()
                 ->mountUsing(fn(Form $form, array $arguments) => $form->fill([
+                    'day_id'=> Day::where('date'.$arguments['event']['start'])->first()->id ?? null,
                     'from' => $arguments['start'] ?? null,
                     'to' => $arguments['end'] ?? null
                 ]))
