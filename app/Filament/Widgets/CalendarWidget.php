@@ -58,6 +58,9 @@ class CalendarWidget extends FullCalendarWidget
                     'from' => $arguments['event']['start'] ?? $record->from,
                     'to' => $arguments['event']['end'] ?? $record->to,
                     'type' => $record->type,
+                    'title'=> $record->title,
+                    'remarks'=> $record->remarks,
+                    'google_map_link'=> $record->google_map_link,
                 ])),
             DeleteAction::make(),
         ];
