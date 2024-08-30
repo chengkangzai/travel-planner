@@ -19,21 +19,26 @@ their trips by allowing them to create itineraries, manage destinations, and pla
 Here are some screenshots of the application in action:
 
 - **Sign In Page**
+
   ![Sign In Page](/screenshots/signIn.png)
 
 - **Itinerary Dashboard - Week & Day View**
+
   ![Dashboard-Week](/screenshots/dashboard-week.jpeg)
   ![Dashboard-Day](/screenshots/dashboard-day.png)
 
 - **View, Edit & Delete Itinerary**
+
   ![Itinerary-View](/screenshots/itinerary-view.png)
   ![Itinerary-Edit](/screenshots/itinerary-edit.png)
   ![Itinerary-Delete](/screenshots/itinerary-delete.png)
 
 - **Locations List**
+
   ![Locations](/screenshots/locations.jpeg)
 
 - **List of Days**
+
   ![Days](/screenshots/days.jpeg)
 
 ## Usage
@@ -44,7 +49,7 @@ Here are some screenshots of the application in action:
 
 ## WIP
 
--- **Wishlist** to store places based on country that users want to go but without date yet
--- **Collaboration Mode** to share your itineraries with others for feedback or collaboration.
--- **Map View** with destination markers to see areas' user visited.
--- **Bahasa Melayu and Mandarin Language Support**
+- **Wishlist** to store places based on country that users want to go but without date yet
+- **Collaboration Mode** to share your itineraries with others for feedback or collaboration.
+- **Map View** with destination markers to see areas' user visited.
+- **Bahasa Melayu and Mandarin Language Support**
