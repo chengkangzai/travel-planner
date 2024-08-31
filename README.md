@@ -27,8 +27,9 @@ Here are some screenshots of the application in action:
   ![Dashboard-Week](/screenshots/dashboard-week.jpeg)
   ![Dashboard-Day](/screenshots/dashboard-day.png)
 
-- **View, Edit & Delete Itinerary**
+- **Create, View, Edit & Delete Itinerary**
 
+  ![Itinerary-Create](/screenshots/itinerary-create.png)
   ![Itinerary-View](/screenshots/itinerary-view.png)
   ![Itinerary-Edit](/screenshots/itinerary-edit.png)
   ![Itinerary-Delete](/screenshots/itinerary-delete.png)
