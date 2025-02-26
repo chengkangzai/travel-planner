@@ -11,8 +11,8 @@
         "php": "^8.1",
         "filament/filament": "^3.3",
         "guzzlehttp/guzzle": "^7.9.2",
-        "laravel/framework": "^10.48.28",
-        "laravel/sanctum": "^3.3.3",
+        "laravel/framework": "^11.44",
+        "laravel/sanctum": "^4.0.8",
         "laravel/tinker": "^2.10.1",
         "saade/filament-fullcalendar": "^3.2.2"
     },
@@ -21,7 +21,7 @@
         "laravel/pint": "^1.21",
         "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6.12",
-        "nunomaduro/collision": "^7.11",
+        "nunomaduro/collision": "^8.5",
         "phpunit/phpunit": "^10.5.45",
         "spatie/laravel-ignition": "^2.9.1"
     },
