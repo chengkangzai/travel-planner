@@ -6,8 +6,8 @@ use App\Enums\ExpensesType;
 use App\Filament\Resources\ExpensesResource\Pages;
 use App\Models\Expenses;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -30,30 +30,26 @@ class ExpensesResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(3)
             ->schema([
-                TextInput::make('name')
-                    ->required(),
+                Section::make([
+                    TextInput::make('name')
+                        ->required(),
 
-                TextInput::make('amount')
-                    ->prefix('RM')
-                    ->required()
-                    ->numeric(),
+                    TextInput::make('amount')
+                        ->prefix('RM')
+                        ->required()
+                        ->numeric(),
 
-                DateTimePicker::make('transaction_date')
-                    ->default(now()),
+                    DateTimePicker::make('transaction_date')
+                        ->default(now()),
+                ])->heading('Information')->columnSpan(2),
 
-                Radio::make('type')
-                    ->columns(2)
-                    ->options(ExpensesType::class)
-                    ->required(),
-
-                Placeholder::make('created_at')
-                    ->label('Created Date')
-                    ->content(fn(?Expenses $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                Placeholder::make('updated_at')
-                    ->label('Last Modified Date')
-                    ->content(fn(?Expenses $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                Section::make([
+                    Radio::make('type')
+                        ->options(ExpensesType::class)
+                        ->required(),
+                ])->heading('Type')->columnSpan(1),
             ]);
     }
 
