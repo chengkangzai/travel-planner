@@ -17,7 +17,6 @@ class Location extends Model
         'order_column',
         'remarks',
         'type',
-        'day_id',
         'is_visited',
         'type'
     ];
@@ -27,9 +26,4 @@ class Location extends Model
         'to' => 'datetime',
         'type' => LocationType::class,
     ];
-
-    public function day(): BelongsTo
-    {
-        return $this->belongsTo(Day::class);
-    }
 }

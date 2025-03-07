@@ -125,21 +125,6 @@ class LocationResource extends Resource
     {
         return [
             Section::make([
-                Select::make('day_id')
-                    ->relationship('day', 'name')
-                    ->createOptionForm([
-                        TextInput::make('name')
-                            ->required(),
-
-                        DatePicker::make('date')
-                            ->required(),
-                    ])
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(function (string $state, Set $set) {
-                        $set('from', Day::find($state)->date->format('Y-m-d 00:00:00'));
-                    })
-                    ->required(),
-
                 Radio::make('type')
                     ->columns(2)
                     ->options(LocationType::class)

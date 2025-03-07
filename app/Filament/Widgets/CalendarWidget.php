@@ -3,7 +3,6 @@
 namespace App\Filament\Widgets;
 
 use App\Filament\Resources\LocationResource;
-use App\Models\Day;
 use App\Models\Location;
 use Filament\Forms\Form;
 use Illuminate\Database\Eloquent\Model;
@@ -26,8 +25,8 @@ class CalendarWidget extends FullCalendarWidget
                 'start' => $location->from,
                 'end' => $location->to,
 
-                'backgroundColor' => 'rgb('.$location->type->getColor()[500].')',
-                'borderColor' => 'rgb('.$location->type->getColor()[500].')',
+                'backgroundColor' => 'rgb(' . $location->type->getColor()[500] . ')',
+                'borderColor' => 'rgb(' . $location->type->getColor()[500] . ')',
 
 //                'url' => LocationResource::getUrl('edit',  ['record' => $location]),
 //                'shouldOpenUrlInNewTab' => true
@@ -41,7 +40,6 @@ class CalendarWidget extends FullCalendarWidget
             CreateAction::make()
                 ->mountUsing(function (Form $form, array $arguments) {
                     return $form->fill([
-                        'day_id' => Day::where('date', ($arguments['start']??null)?->format('Y-m-d') ?? null)->first()->id ?? null,
                         'from' => $arguments['start'] ?? null,
                         'to' => $arguments['end'] ?? null
                     ]);
@@ -58,9 +56,9 @@ class CalendarWidget extends FullCalendarWidget
                     'from' => $arguments['event']['start'] ?? $record->from,
                     'to' => $arguments['event']['end'] ?? $record->to,
                     'type' => $record->type,
-                    'title'=> $record->title,
-                    'remarks'=> $record->remarks,
-                    'google_map_link'=> $record->google_map_link,
+                    'title' => $record->title,
+                    'remarks' => $record->remarks,
+                    'google_map_link' => $record->google_map_link,
                 ])),
             DeleteAction::make(),
         ];
