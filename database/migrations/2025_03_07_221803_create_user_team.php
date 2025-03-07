@@ -10,6 +10,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('user_team', function (Blueprint $table) {
+            $table->id();
             $table->foreignIdFor(User::class)->constrained('users');
             $table->foreignIdFor(Team::class)->constrained('teams');
         });

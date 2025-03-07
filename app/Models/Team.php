@@ -17,7 +17,8 @@ class Team extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_team', 'team_id', 'user_id');
+        return $this->belongsToMany(User::class, 'user_team', 'team_id', 'user_id')
+            ->using(UserTeam::class);
     }
 
     public function locations(): HasMany
