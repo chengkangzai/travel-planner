@@ -79,6 +79,9 @@ class ExpensesResource extends Resource
                     ->money('MYR')
                     ->summarize(Sum::make()),
 
+                TextColumn::make('transaction_date')
+                    ->date(),
+
                 TextColumn::make('users.name')
                     ->badge()
             ])
