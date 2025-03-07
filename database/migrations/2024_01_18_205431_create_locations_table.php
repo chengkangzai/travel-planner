@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('remarks')->nullable();
             $table->string('type')->nullable();
             $table->boolean('is_visited')->default(false);
-            $table->foreignIdFor(Day::class);
+//            $table->foreignIdFor(Day::class);
             $table->timestamps();
         });
     }
