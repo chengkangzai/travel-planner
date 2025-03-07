@@ -10,10 +10,12 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use Illuminate\Support\Collection;
 
 class ManageTeamMember extends Page implements HasTable, HasForms
 {
@@ -30,8 +32,20 @@ class ManageTeamMember extends Page implements HasTable, HasForms
         return $table
             ->query(UserTeam::query()->where('team_id', filament()->getTenant()->id))
             ->columns([
-                TextColumn::make('user.name'),
-                TextColumn::make('user.email'),
+                TextColumn::make('user.name')
+                    ->searchable(),
+                TextColumn::make('user.email')
+                    ->searchable(),
+            ])
+            ->bulkActions([
+                BulkAction::make('bulk_click_out')
+                    ->action(function (Collection $records) {
+                        $records
+                            ->reject(fn($record) => $record->user_id == auth()->id())
+                            ->each(function (UserTeam $record) {
+                                $record->delete();
+                            });
+                    })
             ])
             ->actions([
                 Action::make('Kick out')
