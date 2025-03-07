@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         if (Schema::hasColumn('locations', 'day_id')) {
             Schema::table('locations', function (Blueprint $table) {
-                $table->dropForeign(['day_id']);
+                $table->dropColumn('day_id');
             });
         }
 
