@@ -18,7 +18,8 @@ class Location extends Model
         'remarks',
         'type',
         'is_visited',
-        'type'
+        'type',
+        'team_id',
     ];
 
     protected $casts = [
@@ -26,4 +27,9 @@ class Location extends Model
         'to' => 'datetime',
         'type' => LocationType::class,
     ];
+
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
+    }
 }

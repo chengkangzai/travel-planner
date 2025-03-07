@@ -3,15 +3,17 @@
 namespace App\Models;
 
 use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasTenants
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -46,7 +48,7 @@ class User extends Authenticatable implements FilamentUser
         return $this->teams;
     }
 
-    public function canAccessTenant(Team $tenant): bool
+    public function canAccessTenant(Team|Model $tenant): bool
     {
         return $this->teams()->whereKey($tenant)->exists();
     }

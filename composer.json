@@ -9,12 +9,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "filament/filament": "^3.3",
+        "filament/filament": "^3.3.3",
         "guzzlehttp/guzzle": "^7.9.2",
-        "laravel/framework": "^11.44",
+        "laravel/framework": "^11.44.1",
         "laravel/sanctum": "^4.0.8",
         "laravel/tinker": "^2.10.1",
-        "saade/filament-fullcalendar": "^3.2.2"
+        "saade/filament-fullcalendar": "^3.2.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24.1",

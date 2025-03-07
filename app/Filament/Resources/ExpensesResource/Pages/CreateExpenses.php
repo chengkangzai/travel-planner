@@ -15,4 +15,11 @@ class CreateExpenses extends CreateRecord
 
         ];
     }
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['team_id'] = filament()->getTenant()->id;
+
+        return $data;
+    }
 }
