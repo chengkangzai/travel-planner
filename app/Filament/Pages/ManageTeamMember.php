@@ -2,8 +2,8 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\Pivot\UserTeam;
 use App\Models\User;
-use App\Models\UserTeam;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;

@@ -6,8 +6,10 @@ use App\Enums\ExpensesType;
 use App\Filament\Resources\ExpensesResource\Pages;
 use App\Models\Expenses;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -43,13 +45,22 @@ class ExpensesResource extends Resource
 
                     DateTimePicker::make('transaction_date')
                         ->default(now()),
+
+                    Select::make('users')
+                        ->preload()
+                        ->relationship('users', 'name')
+                        ->multiple(),
                 ])->heading('Information')->columnSpan(2),
 
-                Section::make([
-                    Radio::make('type')
-                        ->options(ExpensesType::class)
-                        ->required(),
-                ])->heading('Type')->columnSpan(1),
+                Fieldset::make('')
+                    ->schema([
+                        Radio::make('type')
+                            ->columns(2)
+                            ->options(ExpensesType::class)
+                            ->required(),
+                    ])
+                    ->columnSpan(1),
+
             ]);
     }
 
@@ -65,8 +76,11 @@ class ExpensesResource extends Resource
                     ->badge(),
 
                 TextColumn::make('amount')
-                    ->numeric()
+                    ->money('MYR')
                     ->summarize(Sum::make()),
+
+                TextColumn::make('users.name')
+                    ->badge()
             ])
             ->filters([
                 //

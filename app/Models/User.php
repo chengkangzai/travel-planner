@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Pivot\ExpenseUser;
+use App\Models\Pivot\UserTeam;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
@@ -52,5 +54,11 @@ class User extends Authenticatable implements FilamentUser, HasTenants
     public function canAccessTenant(Team|Model $tenant): bool
     {
         return $this->teams()->whereKey($tenant)->exists();
+    }
+
+    public function expenses(): BelongsToMany
+    {
+        return $this->belongsToMany(Expenses::class, 'expense_user', 'user_id', 'expenses_id')
+            ->using(ExpenseUser::class);
     }
 }
