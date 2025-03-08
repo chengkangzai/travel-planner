@@ -15,4 +15,11 @@ class CreateUser extends CreateRecord
 
         ];
     }
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['password'] = bcrypt(\Str::random());
+
+        return $data;
+    }
 }
