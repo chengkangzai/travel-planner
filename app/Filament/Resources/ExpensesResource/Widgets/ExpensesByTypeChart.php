@@ -18,7 +18,7 @@ class ExpensesByTypeChart extends ChartWidget
             ->get()
             ->mapWithKeys(function ($item) {
                 // Get the label for this expense type
-                $type = ExpensesType::from($item->type);
+                $type = $item->type;
                 $label = $type->getLabel();
 
                 return [$label => $item->total];
@@ -27,7 +27,7 @@ class ExpensesByTypeChart extends ChartWidget
 
         // Get all the colors for the chart
         $colors = collect(ExpensesType::cases())
-            ->map(function (ExpensesType $type) {
+            ->map(function ($type) {
                 return match ($type->getColor()) {
                     'gray' => '#6B7280',
                     'purple' => '#8B5CF6',
