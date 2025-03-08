@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\ExpensesType;
 use App\Filament\Resources\ExpensesResource\Pages;
+use App\Filament\Resources\ExpensesResource\Widgets\ExpensesByTypeChart;
 use App\Models\Expenses;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Fieldset;
@@ -116,5 +117,12 @@ class ExpensesResource extends Resource
     public static function getGloballySearchableAttributes(): array
     {
         return ['name'];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            ExpensesByTypeChart::class,
+        ];
     }
 }
