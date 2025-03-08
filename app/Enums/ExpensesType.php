@@ -21,7 +21,7 @@ enum ExpensesType: string implements HasColor, HasLabel
     {
         return match ($this) {
             self::FOOD => 'gray',
-            self::TRAVEL => 'secondary',
+            self::TRAVEL => 'purple',
             self::TICKET => 'success',
             self::OTHER => 'purple',
             self::ACCOMMODATION => 'danger',
