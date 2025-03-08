@@ -16,4 +16,11 @@ class ListExpenses extends ListRecords
             CreateAction::make(),
         ];
     }
+
+    protected function getFooterWidgets(): array
+    {
+        return [
+          ExpensesResource\Widgets\ExpensesByTypeChart::class
+        ];
+    }
 }
