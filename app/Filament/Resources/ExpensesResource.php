@@ -19,6 +19,7 @@ use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class ExpensesResource extends Resource
@@ -86,7 +87,11 @@ class ExpensesResource extends Resource
                     ->badge()
             ])
             ->filters([
-                //
+                SelectFilter::make('type')
+                    ->options(ExpensesType::class),
+
+                SelectFilter::make('users')
+                    ->relationship('users', 'name')
             ])
             ->actions([
                 EditAction::make(),
