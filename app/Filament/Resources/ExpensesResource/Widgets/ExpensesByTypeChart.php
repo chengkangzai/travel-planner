@@ -4,6 +4,7 @@ namespace App\Filament\Resources\ExpensesResource\Widgets;
 
 use App\Enums\ExpensesType;
 use App\Models\Expenses;
+use Filament\Support\Colors\Color;
 use Filament\Widgets\ChartWidget;
 
 class ExpensesByTypeChart extends ChartWidget
@@ -28,18 +29,7 @@ class ExpensesByTypeChart extends ChartWidget
 
         // Get all the colors for the chart
         $colors = collect(ExpensesType::cases())
-            ->map(function ($type) {
-                return match ($type->getColor()) {
-                    'gray' => '#6B7280',
-                    'purple' => '#8B5CF6',
-                    'success' => '#10B981',
-                    'danger' => '#EF4444',
-                    'info' => '#3B82F6',
-                    'warning' => '#F59E0B',
-                    'primary' => '#3B82F6',
-                    default => '#6B7280',
-                };
-            })
+            ->map(fn(ExpensesType $type) => Color::rgb($type->getColor()))
             ->toArray();
 
         return [

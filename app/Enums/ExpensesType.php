@@ -23,7 +23,7 @@ enum ExpensesType: string implements HasColor, HasLabel
             self::FOOD => 'gray',
             self::TRAVEL => 'purple',
             self::TICKET => 'success',
-            self::OTHER => 'purple',
+            self::OTHER => 'indigo',
             self::ACCOMMODATION => 'danger',
             self::COMMUNICATION => 'info',
             self::LEISURE => 'warning',

@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Filament\Facades\Filament;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Support\Colors\Color;
@@ -24,7 +23,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         FilamentColor::register([
-            'purple'=>Color::Purple
+            'purple' => Color::Purple,
+            'indigo' => Color::Indigo,
         ]);
     }
 
