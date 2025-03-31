@@ -80,7 +80,7 @@ class ExpensesResource extends Resource
                 TextColumn::make('amount')
                     ->sortable()
                     ->money('MYR')
-                    ->summarize(Sum::make()),
+                    ->summarize(Sum::make()->money('MYR')),
 
                 TextColumn::make('transaction_date')
                     ->date(),
