@@ -78,7 +78,7 @@ class ExpensesResource extends Resource
                     ->badge(),
 
                 TextColumn::make('amount')
-                    ->sortable(),
+                    ->sortable()
                     ->money('MYR')
                     ->summarize(Sum::make()),
 
