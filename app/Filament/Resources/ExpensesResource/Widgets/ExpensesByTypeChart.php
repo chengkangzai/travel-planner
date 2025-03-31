@@ -14,6 +14,7 @@ class ExpensesByTypeChart extends ChartWidget
     {
         $data = Expenses::query()
             ->selectRaw('type, SUM(amount) as total')
+            ->orderBy('total', 'desc')
             ->groupBy('type')
             ->get()
             ->mapWithKeys(function ($item) {
