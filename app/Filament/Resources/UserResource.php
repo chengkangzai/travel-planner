@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers\ExpensesRelationManager;
-use App\Filament\Resources\UserResource\RelationManagers\TeamsRelationManager;
 use App\Models\Pivot\UserTeam;
 use App\Models\User;
 use Filament\Forms\Components\TextInput;
@@ -47,7 +46,7 @@ class UserResource extends Resource
                     ->searchable(),
                 TextColumn::make('email')
                     ->searchable(),
-                TextColumn::make('expenses.amount')
+                TextColumn::make('expenses_sum')
                     ->sum('expenses','amount')
                     ->numeric()
             ])
