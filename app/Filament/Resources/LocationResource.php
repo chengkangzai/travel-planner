@@ -96,10 +96,6 @@ class LocationResource extends Resource
                 EditAction::make(),
                 DeleteAction::make(),
             ])
-            ->groups([
-                Group::make('day.name')
-                    ->label('Day'),
-            ])
             ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
