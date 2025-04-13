@@ -7,14 +7,11 @@ use App\Filament\Resources\UserResource\RelationManagers\ExpensesRelationManager
 use App\Filament\Resources\UserResource\RelationManagers\TeamsRelationManager;
 use App\Models\Pivot\UserTeam;
 use App\Models\User;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkAction;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -50,6 +47,9 @@ class UserResource extends Resource
                     ->searchable(),
                 TextColumn::make('email')
                     ->searchable(),
+                TextColumn::make('total_spend')
+                    ->numeric()
+                    ->sum('expenses', 'amount')
             ])
             ->filters([
                 //
