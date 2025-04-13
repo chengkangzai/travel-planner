@@ -47,9 +47,9 @@ class UserResource extends Resource
                     ->searchable(),
                 TextColumn::make('email')
                     ->searchable(),
-                TextColumn::make('total_spend')
+                TextColumn::make('expenses.amount')
+                    ->sum('expenses','amount')
                     ->numeric()
-                    ->sum('expenses', 'amount')
             ])
             ->filters([
                 //
@@ -59,7 +59,7 @@ class UserResource extends Resource
                 Action::make('Kick out')
                     ->color('danger')
                     ->icon('heroicon-o-x-mark')
-                    ->visible(fn($record) => $record->user_id !== auth()->id())
+                    ->visible(fn(User $record) => $record->id !== auth()->id())
                     ->action(fn(UserTeam $record) => $record->delete())
             ])
             ->bulkActions([
