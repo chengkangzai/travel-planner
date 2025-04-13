@@ -62,7 +62,7 @@ class ExpensesRelationManager extends RelationManager
 
                 TextColumn::make('amount')
                     ->money('MYR')
-                    ->summarize(Sum::make()),
+                    ->summarize(Sum::make()->money('MYR')),
 
                 TextColumn::make('transaction_date')
                     ->date(),
