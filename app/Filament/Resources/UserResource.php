@@ -47,7 +47,7 @@ class UserResource extends Resource
                 TextColumn::make('email')
                     ->searchable(),
                 TextColumn::make('expenses_sum_amount')
-                    ->money()
+                    ->money('MYR')
                     ->sum('expenses','amount')
             ])
             ->filters([
