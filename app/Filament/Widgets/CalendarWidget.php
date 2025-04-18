@@ -44,6 +44,11 @@ class CalendarWidget extends FullCalendarWidget
                         'to' => $arguments['end'] ?? null
                     ]);
                 })
+                ->mutateFormDataUsing(function (array $data) {
+                    $data['team_id'] = filament()->getTenant()->id;
+
+                    return $data;
+                })
         ];
     }
 
