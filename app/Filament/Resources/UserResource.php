@@ -35,6 +35,13 @@ class UserResource extends Resource
 
                 TextInput::make('email')
                     ->required(),
+
+                TextInput::make('password')
+                    ->password()
+                    ->required()
+                    ->confirmed()
+                    ->dehydrated(fn($state) => !empty($state))
+                    ->visibleOn('create'),
             ]);
     }
 
