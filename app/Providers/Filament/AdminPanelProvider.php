@@ -33,6 +33,8 @@ class AdminPanelProvider extends PanelProvider
             ->tenantProfile(EditTeamProfile::class)
             ->default()
             ->id('admin')
+            ->profile()
+            ->passwordReset()
             ->path('admin')
             ->login()
             ->colors([
