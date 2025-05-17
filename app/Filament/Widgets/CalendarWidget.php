@@ -18,6 +18,7 @@ class CalendarWidget extends FullCalendarWidget
     public function fetchEvents(array $info): array
     {
         return Location::query()
+            ->where('team_id', filament()->getTenant()->id)
             ->get()
             ->map(fn(Location $location) => [
                 'id' => $location->id,

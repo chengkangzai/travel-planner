@@ -14,6 +14,7 @@ class ExpensesByTypeChart extends ChartWidget
     protected function getData(): array
     {
         $data = Expenses::query()
+            ->where('team_id', filament()->getTenant()->id)
             ->selectRaw('type, SUM(amount) as total')
             ->orderBy('total', 'desc')
             ->groupBy('type')
