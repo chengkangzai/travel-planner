@@ -7,6 +7,7 @@ use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Notifications\Auth\ResetPassword;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewUser extends ViewRecord
@@ -25,6 +26,12 @@ class ViewUser extends ViewRecord
                     $notification = new ResetPassword($token);
                     $notification->url = Filament::getResetPasswordUrl($token, $record);
                     $record->notify($notification);
+
+                    Notification::make('reset_password')
+                        ->title('Reset Password Email Sent')
+                        ->success()
+                        ->body('A reset password email has been sent to ' . $record->email)
+                        ->send();
                 })
         ];
     }
