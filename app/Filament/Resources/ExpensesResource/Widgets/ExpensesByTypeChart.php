@@ -61,4 +61,11 @@ class ExpensesByTypeChart extends ChartWidget
     {
         return 'pie';
     }
+
+    public static function canView(): bool
+    {
+        return Expenses::query()
+            ->where('team_id', filament()->getTenant()->id)
+            ->exists();
+    }
 }
