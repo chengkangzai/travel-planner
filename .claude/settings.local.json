@@ -23,7 +23,8 @@
       "Bash(vendor/bin/filament-v4)",
       "Bash(composer update *)",
       "Bash(curl -s \"https://repo.packagist.org/p2/laravel/tinker.json\")",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Skill(commit-commands:commit)"
     ]
   }
 }
