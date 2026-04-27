@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ExpensesResource\Pages;
 
+use App\Filament\Resources\ExpensesResource\Widgets\ExpensesByTypeChart;
 use App\Filament\Resources\ExpensesResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
@@ -20,7 +21,7 @@ class ListExpenses extends ListRecords
     protected function getFooterWidgets(): array
     {
         return [
-          ExpensesResource\Widgets\ExpensesByTypeChart::class
+          ExpensesByTypeChart::class
         ];
     }
 }

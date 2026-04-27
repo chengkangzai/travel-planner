@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\UserResource\Pages;
 
+use Filament\Auth\Notifications\ResetPassword;
 use App\Filament\Resources\UserResource;
 use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
-use Filament\Notifications\Auth\ResetPassword;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
 

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\UserResource\Pages;
 
+use Str;
+use Filament\Actions\Action;
 use App\Filament\Resources\UserResource;
 use App\Models\User;
 use Filament\Actions\CreateAction;
@@ -16,14 +18,14 @@ class ListUsers extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            \Filament\Actions\CreateAction::make()
+            CreateAction::make()
                 ->model(User::class)
-                ->mutateFormDataUsing(function (array $data) {
+                ->mutateDataUsing(function (array $data) {
                     $data['team_id'] = filament()->getTenant()->id;
-                    $data['password'] = bcrypt(\Str::random());
+                    $data['password'] = bcrypt(Str::random());
                     return $data;
                 })
-                ->form([
+                ->schema([
                     TextInput::make('name')
                         ->required()
                         ->maxLength(255),
@@ -37,7 +39,7 @@ class ListUsers extends ListRecords
                         ])
                 ]),
 
-            \Filament\Actions\Action::make('invite')
+            Action::make('invite')
                 ->label('Invite')
                 ->icon('heroicon-o-user-plus')
                 ->color('gray')
@@ -45,7 +47,7 @@ class ListUsers extends ListRecords
                     $user = User::query()->findOrFail($data['user_id']);
                     $user->teams()->attach(filament()->getTenant()->id);
                 })
-                ->form([
+                ->schema([
                     Select::make('user_id')
                         ->label('User')
                         ->searchable()

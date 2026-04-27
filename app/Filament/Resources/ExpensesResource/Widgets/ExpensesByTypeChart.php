@@ -9,7 +9,7 @@ use Filament\Widgets\ChartWidget;
 
 class ExpensesByTypeChart extends ChartWidget
 {
-    protected static ?string $heading = 'Chart';
+    protected ?string $heading = 'Chart';
 
     protected function getData(): array
     {

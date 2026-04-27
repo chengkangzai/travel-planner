@@ -2,22 +2,25 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Fieldset;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use App\Filament\Resources\ExpensesResource\Pages\ListExpenses;
+use App\Filament\Resources\ExpensesResource\Pages\CreateExpenses;
+use App\Filament\Resources\ExpensesResource\Pages\EditExpenses;
 use App\Enums\ExpensesType;
 use App\Filament\Resources\ExpensesResource\Pages;
 use App\Filament\Resources\ExpensesResource\Widgets\ExpensesByTypeChart;
 use App\Models\Expenses;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -29,13 +32,13 @@ class ExpensesResource extends Resource
 
     protected static ?string $slug = 'expenses';
 
-    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-banknotes';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->columns(3)
-            ->schema([
+            ->components([
                 Section::make([
                     TextInput::make('name')
                         ->required(),
@@ -95,11 +98,11 @@ class ExpensesResource extends Resource
                 SelectFilter::make('users')
                     ->relationship('users', 'name')
             ])
-            ->actions([
+            ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
@@ -109,9 +112,9 @@ class ExpensesResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListExpenses::route('/'),
-            'create' => Pages\CreateExpenses::route('/create'),
-            'edit' => Pages\EditExpenses::route('/{record}/edit'),
+            'index' => ListExpenses::route('/'),
+            'create' => CreateExpenses::route('/create'),
+            'edit' => EditExpenses::route('/{record}/edit'),
         ];
     }
 

@@ -2,26 +2,29 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use App\Filament\Resources\LocationResource\Pages\ListLocations;
+use App\Filament\Resources\LocationResource\Pages\CreateLocation;
+use App\Filament\Resources\LocationResource\Pages\EditLocation;
+use Filament\Schemas\Components\Section;
+use Filament\Actions\Action;
+use Filament\Schemas\Components\Utilities\Set;
 use App\Enums\LocationType;
 use App\Filament\Resources\LocationResource\Pages;
 use App\Models\Day;
 use App\Models\Location;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Forms\Set;
 use Filament\Resources\Resource;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Grouping\Group;
@@ -33,14 +36,14 @@ class LocationResource extends Resource
 
     protected static ?string $slug = 'locations';
 
-    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-map-pin';
 
     protected static ?int $navigationSort = 0;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 ...self::getFormSchema(),
                 Placeholder::make('created_at')
                     ->label('Created Date')
@@ -92,11 +95,11 @@ class LocationResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
+            ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
@@ -106,9 +109,9 @@ class LocationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLocations::route('/'),
-            'create' => Pages\CreateLocation::route('/create'),
-            'edit' => Pages\EditLocation::route('/{record}/edit'),
+            'index' => ListLocations::route('/'),
+            'create' => CreateLocation::route('/create'),
+            'edit' => EditLocation::route('/{record}/edit'),
         ];
     }
 
