@@ -30,7 +30,7 @@ class Expenses extends Model
         ];
     }
 
-    public function amount()
+    public function amount(): Attribute
     {
         return Attribute::make(
             get: fn($value) => $value / 100,

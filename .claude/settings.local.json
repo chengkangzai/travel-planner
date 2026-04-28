@@ -3,7 +3,28 @@
     "allow": [
       "Skill(commit-commands:commit-push-pr)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(php artisan *)",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs",
+      "Bash(curl -s \"https://packagist.org/packages/saade/filament-fullcalendar.json\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); versions=list\\(d['package']['versions'].keys\\(\\)\\)[:10]; print\\('\\\\n'.join\\(versions\\)\\)\")",
+      "Bash(curl -s \"https://packagist.org/packages/laravel/framework.json\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); versions=[v for v in d['package']['versions'].keys\\(\\) if v.startswith\\('v13'\\) or v.startswith\\('13'\\)][:10]; print\\('\\\\n'.join\\(versions\\)\\)\")",
+      "Bash(curl -s \"https://packagist.org/packages/saade/filament-fullcalendar/v4.0.0-beta7.json\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); req=d['package']['versions']['v4.0.0-beta7']['require']; print\\(json.dumps\\(req, indent=2\\)\\)\")",
+      "Bash(curl -s \"https://packagist.org/packages/laravel/sanctum.json\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); versions=[v for v in d['package']['versions'].keys\\(\\) if not 'dev' in v.lower\\(\\)][:8]; print\\('\\\\n'.join\\(versions\\)\\)\")",
+      "Bash(curl -s \"https://repo.packagist.org/p2/saade/filament-fullcalendar.json\")",
+      "Bash(python3 -c \" import json,sys d=json.load\\(sys.stdin\\) pkgs = d['packages']['saade/filament-fullcalendar'] for p in pkgs[:5]: print\\(p['version'], '|', p.get\\('require',{}\\).get\\('filament/filament','?'\\), '|', p.get\\('require',{}\\).get\\('laravel/framework','?'\\)\\) \")",
+      "Bash(git checkout *)",
+      "Bash(composer require *)",
+      "Bash(vendor/bin/filament-v4)",
+      "Bash(composer update *)",
+      "Bash(curl -s \"https://repo.packagist.org/p2/laravel/tinker.json\")",
+      "Bash(python3 -c ' *)",
+      "Skill(commit-commands:commit)"
     ]
   }
 }

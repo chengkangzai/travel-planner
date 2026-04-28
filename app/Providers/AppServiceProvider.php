@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
+use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Section;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use Illuminate\Support\ServiceProvider;

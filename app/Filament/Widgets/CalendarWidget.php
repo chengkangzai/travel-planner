@@ -2,9 +2,9 @@
 
 namespace App\Filament\Widgets;
 
+use Filament\Schemas\Schema;
 use App\Filament\Resources\LocationResource;
 use App\Models\Location;
-use Filament\Forms\Form;
 use Illuminate\Database\Eloquent\Model;
 use Saade\FilamentFullCalendar\Actions\CreateAction;
 use Saade\FilamentFullCalendar\Actions\DeleteAction;
@@ -39,13 +39,13 @@ class CalendarWidget extends FullCalendarWidget
     {
         return [
             CreateAction::make()
-                ->mountUsing(function (Form $form, array $arguments) {
-                    return $form->fill([
+                ->mountUsing(function (Schema $schema, array $arguments) {
+                    return $schema->fill([
                         'from' => $arguments['start'] ?? null,
                         'to' => $arguments['end'] ?? null
                     ]);
                 })
-                ->mutateFormDataUsing(function (array $data) {
+                ->mutateDataUsing(function (array $data) {
                     $data['team_id'] = filament()->getTenant()->id;
 
                     return $data;
@@ -57,7 +57,7 @@ class CalendarWidget extends FullCalendarWidget
     {
         return [
             EditAction::make()
-                ->mountUsing(fn(Location $record, Form $form, array $arguments) => $form->fill([
+                ->mountUsing(fn(Location $record, Schema $schema, array $arguments) => $schema->fill([
                     'name' => $record->name,
                     'from' => $arguments['event']['start'] ?? $record->from,
                     'to' => $arguments['event']['end'] ?? $record->to,
