@@ -18,7 +18,7 @@ class CalendarWidgetTest extends FilamentTestCase
         $otherTeam = Team::factory()->create();
         Location::factory()->forTeam($otherTeam)->create(['name' => 'Other Hotel']);
 
-        $widget = new CalendarWidget();
+        $widget = new CalendarWidget;
         $events = $widget->fetchEvents([]);
 
         $ids = array_column($events, 'id');
@@ -33,7 +33,7 @@ class CalendarWidgetTest extends FilamentTestCase
 
         Location::factory()->forTeam($team)->create(['name' => 'KLIA Terminal 2']);
 
-        $widget = new CalendarWidget();
+        $widget = new CalendarWidget;
         $events = $widget->fetchEvents([]);
 
         $this->assertSame('KLIA Terminal 2', $events[0]['title']);
@@ -46,7 +46,7 @@ class CalendarWidgetTest extends FilamentTestCase
         $from = now()->addDay()->setSecond(0);
         Location::factory()->forTeam($team)->create(['from' => $from]);
 
-        $widget = new CalendarWidget();
+        $widget = new CalendarWidget;
         $events = $widget->fetchEvents([]);
 
         $this->assertArrayHasKey('start', $events[0]);
@@ -62,21 +62,21 @@ class CalendarWidgetTest extends FilamentTestCase
 
         Location::factory()->forTeam($team)->create(['type' => LocationType::hotel]);
 
-        $widget = new CalendarWidget();
+        $widget = new CalendarWidget;
         $events = $widget->fetchEvents([]);
 
         $this->assertArrayHasKey('backgroundColor', $events[0]);
-        $this->assertStringStartsWith('rgb(', $events[0]['backgroundColor']);
 
-        $expectedColor = 'rgb(' . LocationType::hotel->getColor()[500] . ')';
+        $expectedColor = LocationType::hotel->getColor()[500];
         $this->assertSame($expectedColor, $events[0]['backgroundColor']);
+        $this->assertSame($expectedColor, $events[0]['borderColor']);
     }
 
     public function test_fetch_events_returns_empty_for_tenant_with_no_locations(): void
     {
         $this->loginAsTenantMember();
 
-        $widget = new CalendarWidget();
+        $widget = new CalendarWidget;
         $events = $widget->fetchEvents([]);
 
         $this->assertEmpty($events);
@@ -88,7 +88,7 @@ class CalendarWidgetTest extends FilamentTestCase
 
         Location::factory()->forTeam($team)->create();
 
-        $widget = new CalendarWidget();
+        $widget = new CalendarWidget;
         $events = $widget->fetchEvents([]);
 
         $this->assertArrayHasKey('id', $events[0]);
